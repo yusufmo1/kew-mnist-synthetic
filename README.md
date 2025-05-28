@@ -127,7 +127,8 @@ kew-mnist-synthetic/
 ├── notebooks/           # Analysis notebooks
 │   ├── 01_data_exploration.ipynb
 │   ├── 02_model_comparison.ipynb
-│   └── 03_results_analysis.ipynb
+│   ├── 03_results_analysis.ipynb
+│   └── 04_prompt_generation.ipynb
 ├── src/                 # Core modules
 │   ├── data_loader.py   # Data utilities
 │   ├── models.py        # CNN architecture
