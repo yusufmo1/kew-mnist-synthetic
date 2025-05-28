@@ -4,7 +4,7 @@
 [![TensorFlow 2.13+](https://img.shields.io/badge/tensorflow-2.13+-orange.svg)](https://tensorflow.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Improving botanical image classification accuracy from **91.97%** to **93.42%** using AI-generated synthetic data augmentation.
+Improving botanical image classification accuracy from **66.07%** to **73.08%** using AI-generated synthetic data augmentation.
 
 <p align="center">
   <img src="docs/images/sample_images_original_and_synthetic.jpeg" alt="Original vs Synthetic Samples" width="800"/>
@@ -18,12 +18,22 @@ Our synthetic data augmentation approach demonstrates significant improvements a
   <img src="docs/images/comparison_class_accuracy.png" alt="Class Accuracy Comparison" width="800"/>
 </p>
 
-| Metric | Original Model | Synthetic-Enhanced | Improvement |
-|--------|---------------|-------------------|-------------|
-| **Overall Accuracy** | 91.97% | **93.42%** | +1.45% |
-| **Weighted F1** | 0.919 | **0.934** | +0.015 |
-| **Fruit Class Accuracy** | 80.21% | **87.50%** | +7.29% |
-| **Stem Class Accuracy** | 82.46% | **90.35%** | +7.89% |
+| Metric | Original Model (Weighted) | Synthetic Model (Unweighted) | Improvement |
+|--------|--------------------------|------------------------------|-------------|
+| **Overall Accuracy** | 66.07% | **73.08%** | +7.01% |
+| **Weighted F1** | 0.6524 | **0.7285** | +0.0761 |
+| **Test Set Size** | 613 images | 613 images | - |
+
+### Per-Class Performance
+
+| Class | Original Accuracy | Synthetic Accuracy | Improvement |
+|-------|------------------|-------------------|-------------|
+| **Flower** | 35.00% | **62.50%** | +27.50% |
+| **Fruit** | 18.18% | **36.36%** | +18.18% |
+| **Leaf** | 44.59% | **47.97%** | +3.38% |
+| **Stem** | 37.50% | **62.50%** | +25.00% |
+| **Plant_Tag** | 97.33% | **97.33%** | 0.00% |
+| **Whole_Plant** | 89.72% | **85.05%** | -4.67% |
 
 ## 🚀 Quick Start
 
@@ -51,8 +61,9 @@ python scripts/evaluate.py
 
 This project enhances the Kew-MNIST botanical dataset using carefully curated synthetic images generated with Flux.1-dev. By addressing class imbalance through targeted synthetic data generation, we achieve:
 
-- **Balanced dataset**: From 6:1 to 1.5:1 class ratio
-- **Improved minority class performance**: Up to 12% accuracy gains
+- **Significant accuracy improvement**: 7.01% overall gain
+- **Dramatic minority class improvements**: Up to 27.50% for Flower class
+- **Better than class weighting**: Synthetic augmentation outperforms traditional class weighting
 - **Robust feature learning**: Models focus on botanically relevant features
 
 <p align="center">
@@ -177,11 +188,24 @@ Architecture:
 
 ### Performance Metrics
 
+#### F1-Score Improvements
+
+| Class | Original F1 | Synthetic F1 | Improvement |
+|-------|------------|--------------|-------------|
+| Flower | 0.467 | 0.649 | +0.182 |
+| Fruit | 0.267 | 0.471 | +0.204 |
+| Leaf | 0.552 | 0.609 | +0.057 |
+| Stem | 0.452 | 0.620 | +0.168 |
+| Plant_Tag | 0.971 | 0.973 | +0.002 |
+| Whole_Plant | 0.568 | 0.643 | +0.075 |
+
 <p align="center">
   <img src="docs/images/precesion_recall_f1_comparison.png" alt="Precision Recall F1" width="800"/>
 </p>
 
 ### ROC Curves Analysis
+
+The synthetic model achieved higher AUC values, including 0.903 for Flower and 0.949 for the micro-average, reflecting the effectiveness of synthetic augmentation in addressing class imbalance.
 
 <p align="center">
   <img src="docs/images/roc_curves.png" alt="ROC Curves Comparison" width="800"/>
@@ -207,7 +231,7 @@ Architecture:
   <img src="docs/images/comparison_occlusion_sensitivity.png" alt="Occlusion Sensitivity" width="800"/>
 </p>
 
-The occlusion analysis reveals that synthetic-enhanced models learn more botanically relevant features, focusing less on background artifacts.
+Occlusion sensitivity maps indicated better feature focus for Flower and Leaf in the synthetic model, revealing that synthetic-enhanced models learn more botanically relevant features.
 
 ## 🖼️ Streamlit Demo App
 
@@ -255,6 +279,18 @@ python scripts/run_analysis.py
 - **Memory Usage**: 128GB system RAM, optimized for Apple Silicon
 - **Dataset Size**: Original (1GB) + Synthetic (500MB)
 - **Hardware**: Apple M3 Max with 96GB unified memory
+- **Test Set**: 613 images for evaluation
+
+## 🎯 Key Findings
+
+The synthetic data augmentation approach demonstrated substantial improvements over class weighting alone:
+
+- **Overall Performance**: 7.01% accuracy improvement (66.07% → 73.08%)
+- **Underrepresented Classes**: Dramatic gains in Flower (+27.50%), Stem (+25.00%), and Fruit (+18.18%)
+- **Balanced Improvements**: Consistent gains across precision, recall, and F1-scores
+- **Minimal Trade-offs**: Only minor decrease in Whole Plant class (-4.67%)
+
+These results confirm that synthetic data augmentation provides a more effective solution for addressing class imbalance in botanical classification compared to traditional class weighting approaches.
 
 ## 📖 Citation
 
@@ -286,3 +322,4 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) for deta
   <a href="https://www.linkedin.com/in/yusuf-mohammed1/">LinkedIn</a> • 
   Queen Mary University of London
 </p>
+```
