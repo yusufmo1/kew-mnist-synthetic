@@ -150,13 +150,27 @@ Our CNN architecture is optimized for botanical image classification:
 
 ```python
 Model: KewCNN
+Total Parameters: 13,893,462
 Input: 500×500×1 grayscale images
+
 Architecture:
-  - Conv2D(48, 5×5) → LeakyReLU → MaxPool(4×4)
-  - Conv2D(96, 3×3) → LeakyReLU → MaxPool(4×4)
-  - Conv2D(192, 3×3) → LeakyReLU → MaxPool(2×2)
-  - Dense(320) → LeakyReLU → Dropout(0.4)
-  - Dense(6, softmax)
+  - InputLayer: (None, 500, 500, 1)
+  - Rescaling: (None, 500, 500, 1)
+  - Sequential:
+    - Conv2D(48, kernel_size=5×5): (None, 500, 500, 48) - 1,248 params
+    - LeakyReLU: (None, 500, 500, 48)
+    - MaxPooling2D(4×4): (None, 125, 125, 48)
+    - Conv2D(96, kernel_size=3×3): (None, 125, 125, 96) - 41,568 params
+    - LeakyReLU: (None, 125, 125, 96)
+    - MaxPooling2D(4×4): (None, 31, 31, 96)
+    - Conv2D(192, kernel_size=3×3): (None, 31, 31, 192) - 166,080 params
+    - LeakyReLU: (None, 31, 31, 192)
+    - MaxPooling2D(2×2): (None, 15, 15, 192)
+  - Flatten: (None, 43200)
+  - Dense(320): (None, 320) - 13,824,320 params
+  - LeakyReLU: (None, 320)
+  - Dropout(0.3): (None, 320)
+  - Dense(6, softmax): (None, 6) - 1,926 params
 ```
 
 <p align="center">
