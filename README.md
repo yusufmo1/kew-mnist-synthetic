@@ -326,7 +326,8 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) for deta
 ## 🙏 Acknowledgments
 
 - **QMUL Students** for the original Kew-MNIST dataset
-- **Queen Mary University of London** for academic support
+- **Queen Mary University of London** 
+- [**Ian McFadden**](https://github.com/IanMcFadden) for academic guidance
 - **Flux.1-dev** by Black Forest Labs for synthetic image generation
 
 ---
